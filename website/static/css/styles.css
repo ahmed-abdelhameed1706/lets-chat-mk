@@ -1,0 +1,59 @@
+body {
+	min-height: 100vh;
+}
+
+.home {
+	padding-top: 10%;
+}
+
+h2 {
+	max-width: 75%;
+}
+
+.btn-close:hover,
+.btn-close:focus,
+.btn-close:active {
+	outline: none;
+	box-shadow: none;
+}
+
+.message-box {
+	border: 2px solid black;
+	border-radius: 10px;
+	background-color: whitesmoke;
+	height: 70vh;
+	display: flex;
+	flex-direction: column;
+	width: 80vw;
+	align-items: stretch;
+}
+
+.messages {
+	overflow-y: scroll;
+	flex: 1;
+	width: 100%;
+}
+
+.inputs {
+	padding: 10px;
+	display: flex;
+	gap: 5px;
+}
+
+@media (max-width: 767px) {
+	.inputs {
+		flex-direction: column;
+		gap: 10px;
+	}
+}
+
+.invite-code {
+	text-align: center;
+}
+
+#message {
+	flex: 1;
+	resize: none;
+	outline: none;
+	box-shadow: none;
+}
