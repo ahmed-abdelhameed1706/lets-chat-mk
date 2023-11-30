@@ -2,11 +2,11 @@
 <div class="pt-5">
 	<div class="message-box mx-auto">
 		<h2 class="invite-code mx-auto">Room: {{code}}</h2>
-		<div class="users">
+		<!-- <div class="users">
 			{% if users %} {% for user in users %}
 			<div class="user">{{user.name}}</div>
 			{% endfor %} {% endif %}
-		</div>
+		</div> -->
 		<div class="messages" id="messages"></div>
 		<div class="inputs">
 			<input
@@ -41,7 +41,7 @@
 					<strong>${name}</strong>: ${msg}
 				</span>
 				<span class='muted'>
-					${new Date().toLocalString()}
+					${new Date().toLocaleString()}
 				</span>
 			</div>
 		`;

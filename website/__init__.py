@@ -4,6 +4,7 @@ from .models import db, Room, User
 from flask_socketio import SocketIO, join_room, leave_room, send
 from .routes.main import main
 import datetime
+from time import sleep
 
 app = Flask(__name__)
 
@@ -49,13 +50,15 @@ def disconnect():
     room = Room.query.filter_by(code=session.get('room_code')).first()
     user = User.query.filter_by(session_id=session.get('user')).first()
     leave_room(room.code)
-    
+
     if room:
         room.users.remove(user)
+        #db.session.delete(user)
         db.session.commit()
         if len(room.users) <= 0:
             db.session.delete(room)
             db.session.commit()
+    
     
     send({"name": user.name, "message": "has left the room"}, to=room.code)
     print(f"{user.name} left the room {room.code}")
