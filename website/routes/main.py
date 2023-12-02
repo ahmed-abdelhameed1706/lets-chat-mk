@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, render_template, url_for, request, sessio
 from flask_socketio import leave_room, join_room, send
 import random
 import string
-from ..models import Room, db, User
+from ..models import Room, db, User, Message
 import uuid
 
 main = Blueprint('main', __name__)
@@ -74,7 +74,8 @@ def home():
 def room():
     room_code = session.get('room_code')
     room = Room.query.filter_by(code=room_code).first()
+    messages = Message.query.filter_by(room_id=room.id).all()
     if room is None or session.get('user_name') is None or room_code is None:
         return redirect(url_for('main.home'))
     users = room.users
-    return render_template('room.html', code=room.code, users=users)
+    return render_template('room.html', code=room.code, users=users, messages=messages)

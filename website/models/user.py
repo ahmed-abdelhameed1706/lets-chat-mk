@@ -7,4 +7,4 @@ class User(db.Model):
     session_id = db.Column(db.String(50), nullable=False)
     room_code = db.Column(db.String(10), db.ForeignKey('room.code'))
     created_at = db.Column(db.DateTime(timezone=True), default=func.now())
-    messages = db.relationship('Message')
+    messages = db.relationship('Message', backref='user', lazy=True)

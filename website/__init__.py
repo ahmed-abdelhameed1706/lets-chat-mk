@@ -1,6 +1,6 @@
 from flask import Flask, session
 import os
-from .models import db, Room, User
+from .models import db, Room, User, Message
 from flask_socketio import SocketIO, join_room, leave_room, send
 from .routes.main import main
 import datetime
@@ -27,6 +27,28 @@ app = create_app()
 
 socketio = SocketIO(app)
 
+@socketio.on('sendingMessage')
+def sendMessage(message):
+    room = Room.query.filter_by(code=session.get('room_code')).first()
+    user = User.query.filter_by(session_id=session.get('user')).first()
+    
+    if not room or not user:
+        return
+    
+    time = datetime.datetime.now()
+    time_pattern = "%Y-%m-%d %H:%M %p"
+    time = time.strftime(time_pattern)
+
+
+    send({"name": user.name, "message": message['message'], 'date':time}, to=room.code)
+
+    message = Message(user_id=user.id, room_id=room.id, text=message['message'])
+    db.session.add(message)
+    db.session.commit()
+
+    
+    print(f"{user.name} sent a message to room {room.code}: {message}")
+    
 @socketio.on('connect')
 def connect(auth):
     room = Room.query.filter_by(code=session.get('room_code')).first()
@@ -36,11 +58,18 @@ def connect(auth):
         return
     
     join_room(room.code)
+
+    time = datetime.datetime.now()
+    time_pattern = "%Y-%m-%d %H:%M %p"
+    time = time.strftime(time_pattern)
+
     
-    send({"name": user.name, "message": "has entered the room"}, to=room.code)
+    send({"name": user.name, "message": "has entered the room", 'date':time}, to=room.code)
     
     room.users.append(user)
     db.session.commit()
+
+    
     
     print(f"{user.name} joined the room {room.code}")
     
@@ -59,8 +88,13 @@ def disconnect():
             db.session.delete(room)
             db.session.commit()
     
+    time = datetime.datetime.now()
+    time_pattern = "%Y-%m-%d %H:%M %p"
+    time = time.strftime(time_pattern)
+
     
-    send({"name": user.name, "message": "has left the room"}, to=room.code)
+    
+    send({"name": user.name, "message": "has left the room", "date":time}, to=room.code)
     print(f"{user.name} left the room {room.code}")
         
 

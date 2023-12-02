@@ -57,3 +57,18 @@ h2 {
 	outline: none;
 	box-shadow: none;
 }
+
+
+.text{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.muted{
+	color: darkgray;
+	font-size: 10px;
+}
