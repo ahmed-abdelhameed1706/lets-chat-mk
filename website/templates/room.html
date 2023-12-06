@@ -29,42 +29,6 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	var socketio = io.connect('https://chat.eng-ahmed.me', { secure: true });
-
-	const messages = document.getElementById("messages");
-
-	const createMessage = (name, msg, time) => {
-		const content = `
-			<div class='text'>
-				<span>
-					<strong>${name}</strong>: ${msg}
-				</span>
-				<span class='muted'>
-					${time}
-				</span>
-			</div>
-		`;
-		messages.innerHTML += content;
-	};
-
-	socketio.on("message", (data) => {
-		createMessage(data.name, data.message, data.date);
-	});
-	const sendMessage = () => {
-		const message = document.getElementById("message");
-		if (message.value === "") return;
-		socketio.emit("sendingMessage", { message: message.value });
-		message.value = "";
-	};
-
-	document.getElementById("message").addEventListener("keyup", (event) => {
-		if (event.keyCode === 13) {
-			event.preventDefault();
-			document.getElementById("send-btn").click();
-		}
-	});
-</script>
 {% for msg in messages%}
 <script type="text/javascript">
 	createMessage("{{msg.user.name}}", "{{msg.text}}", "{{msg.created_at}}");

@@ -72,3 +72,133 @@ h2 {
 	color: darkgray;
 	font-size: 10px;
 }
+
+.landing {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	background-image: url(../images/background.jpg);
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	color: #f0f0f0;
+	letter-spacing: 0.7px;
+}
+
+.landing-container {
+	padding-top: 5%;
+}
+
+
+
+.bn54 {
+	position: relative;
+	outline: none;
+	text-decoration: none;
+	border-radius: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	text-transform: uppercase;
+	height: 45px;
+	width: 12em;
+	opacity: 1;
+	background-color: #ffffff;
+	border: 1px solid rgba(0, 0, 0, 0.6);
+  }
+  
+  .bn54 .bn54span {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: #000000;
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.7px;
+  }
+  
+  .bn54:hover {
+	animation: bn54rotate 0.7s ease-in-out both;
+  }
+  
+  .bn54:hover .bn54span {
+	animation: bn54storm 0.7s ease-in-out both;
+	animation-delay: 0.06s;
+  }
+  
+  @keyframes bn54rotate {
+	0% {
+	  transform: rotate(0deg) translate3d(0, 0, 0);
+	}
+	25% {
+	  transform: rotate(3deg) translate3d(0, 0, 0);
+	}
+	50% {
+	  transform: rotate(-3deg) translate3d(0, 0, 0);
+	}
+	75% {
+	  transform: rotate(1deg) translate3d(0, 0, 0);
+	}
+	100% {
+	  transform: rotate(0deg) translate3d(0, 0, 0);
+	}
+  }
+  
+  @keyframes bn54storm {
+	0% {
+	  transform: translate3d(0, 0, 0) translateZ(0);
+	}
+	25% {
+	  transform: translate3d(4px, 0, 0) translateZ(0);
+	}
+	50% {
+	  transform: translate3d(-3px, 0, 0) translateZ(0);
+	}
+	75% {
+	  transform: translate3d(2px, 0, 0) translateZ(0);
+	}
+	100% {
+	  transform: translate3d(0, 0, 0) translateZ(0);
+	}
+  }
+
+
+
+.forms{
+	width: 100%;
+	display: flex;
+
+}
+
+.new-ppl,
+.friends {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 50vh;
+  }
+
+  .friends a {
+	text-decoration: none;
+  }
+
+  #waiting {
+	width: 60%;
+  }
+
+  .hidden{
+	display: none;
+  }
+
+  @media (max-width: 767px) {
+	.forms {
+		flex-direction: column;
+		gap: 20px;
+		margin-top: 3em;
+	}
+
+	.new-ppl,
+	.friends {
+		width: 100%;
+		height: auto;
+	}
+  }

@@ -86,9 +86,10 @@ def connect(auth):
 def disconnect():
     room = Room.query.filter_by(code=session.get('room_code')).first()
     user = User.query.filter_by(session_id=session.get('user')).first()
-    leave_room(room.code)
+    
 
     if room:
+        leave_room(room.code)
         room.users.remove(user)
         #db.session.delete(user)
         db.session.commit()

@@ -1,5 +1,4 @@
 from flask import Blueprint, redirect, render_template, url_for, request, session, flash
-from flask_socketio import leave_room, join_room, send
 import random
 import string
 from ..models import Room, db, User, Message
@@ -12,16 +11,20 @@ def generate_room_code(length):
     while True:
         code = ''
         for _ in range(length):
-            code += random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits)
+            code += random.choice(string.digits)
             
         room = Room.query.filter_by(code=code).first()
         if not room:
             break
     return code
-        
 
 
 @main.route('/', methods=['GET', 'POST'])
+def landing():
+    return render_template('landing-page.html')        
+
+
+@main.route('/home', methods=['GET', 'POST'])
 def home():
     """"main home page rendered function"""
     session.clear()
@@ -74,8 +77,9 @@ def home():
 def room():
     room_code = session.get('room_code')
     room = Room.query.filter_by(code=room_code).first()
-    messages = Message.query.filter_by(room_id=room.id).all()
+    
     if room is None or session.get('user_name') is None or room_code is None:
         return redirect(url_for('main.home'))
     users = room.users
+    messages = Message.query.filter_by(room_id=room.id).all()
     return render_template('room.html', code=room.code, users=users, messages=messages)

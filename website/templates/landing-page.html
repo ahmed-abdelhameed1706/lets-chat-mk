@@ -1,0 +1,34 @@
+{% extends 'base.html' %}{% block content %}
+<div class="landing">
+    <div class="container mx-auto text-center landing-container">
+        <h1 class="text-center mx-auto">Welcome to Lets Chat MK</h1>
+        <h2 class="text-center mx-auto">
+            Where you can meet like-minded people from all around the world.
+        </h2>
+        <div class="forms">
+            <div class="new-ppl">
+                <form action="">
+                    <button id="meet-ppl" class="bn54">
+                        <span class="bn54span">Meet New People!</span>
+                      </button>
+                </form>
+                <div id="waiting" class="hidden">
+                    <p>Please wait while we get you matched with a random user.</p>
+                </div>
+            </div>
+    
+            <div class="friends">
+                <a href="/home">
+                    <button id="create-room-friends" class="bn54">
+                        <span class="bn54span">Create A Room With Friends!</span>
+                      </button>
+                    </a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script>
+    
+</script>
+{% endblock %}
