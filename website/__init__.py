@@ -5,13 +5,22 @@ from flask_socketio import SocketIO, join_room, leave_room, send
 from .routes.main import main
 import datetime
 from time import sleep
+from dotenv import load_dotenv
+from flask_cors import CORS
 
-app = Flask(__name__)
+load_dotenv()
 
+socketio = SocketIO()
 
 def create_app():
+
+    app = Flask(__name__)
+
+    CORS(app)
+
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
     app.config['SECRET_KEY'] = os.environ.get('APP_SECRET_KEY')
+    #app.config['SECRET_KEY'] = 'asdAE123ASD #!2FAS 32ASD #21F 3ASD fa3 sF3ADSfa 3'
 
     app.register_blueprint(main, url_prefix='/')
     
@@ -20,12 +29,11 @@ def create_app():
     with app.app_context():
         db.create_all()
     
+    socketio.init_app(app, cors_allowed_origins="*")
+
     return app
 
 
-app = create_app()
-
-socketio = SocketIO(app)
 
 @socketio.on('sendingMessage')
 def sendMessage(message):
