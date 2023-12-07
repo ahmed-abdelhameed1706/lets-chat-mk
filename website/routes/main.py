@@ -83,3 +83,23 @@ def room():
     users = room.users
     messages = Message.query.filter_by(room_id=room.id).all()
     return render_template('room.html', code=room.code, users=users, messages=messages)
+
+@main.route('/public-room', methods=['POST'])
+def join_public_room():
+    if session.get('session_key') is None:
+        session['session_key'] = str(uuid.uuid4())
+    room_code = 'PUBLIC'
+    name = 'user_' + str(generate_room_code(5))
+    user = User(name=name, session_id=session['session_key'])
+    room = Room.query.filter_by(code=room_code).first()
+    if room is None:
+        room = Room(code=room_code)
+        db.session.add(room)
+    user.room_code = room.code
+    db.session.add(user)
+    db.session.commit()
+    session['room_code'] = room.code
+    session['user_name'] = name
+    session['user'] = user.session_id
+    return redirect(url_for('main.room'))
+
