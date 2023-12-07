@@ -1,41 +1,103 @@
-{% extends 'base.html' %}{% block content %}
 
-<div class="container mx-auto text-center home">
-	<h2 class="text-center mx-auto">
-		Welcome to Lets Chat MK, where you can meet like-minded people from all
-		around the world.
-	</h2>
-	<form method="post">
-		<div>
-			<label for="name">Nickname:</label>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+			integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+    <script
+			src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+			integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+			crossorigin="anonymous"
+		></script>
+    <link
+			rel="stylesheet"
+			href="{{url_for('static', filename='css/home.css')}}"
+		/>
+    <title>Chat with friends</title>
+</head>
+<body>
+	{% with messages = get_flashed_messages(with_categories=true) %} {% if
+		messages%} {% for category, message in messages %}
+		<div
+			class="alert alert-{{ category }} alert-dismissible fade show mb-0 rounded-0"
+			role="alert"
+		>
+			{{ message|safe }}
+			<button
+				type="button"
+				class="btn-close"
+				data-bs-dismiss="alert"
+				aria-label="Close"
+			></button>
+		</div>
+
+		{% endfor %} {% endif %} {% endwith %}
+    <div class="login-box">
+		<h2>Login</h2>
+		<form method="post">
+		  <div class="user-box">
 			<input
 				type="text"
 				id="name"
 				name="name"
-				class="form-control w-50 mx-auto"
-				placeholder="Pick a name"
 				value="{{name}}"
+				
 			/>
-		</div>
-		<div class="join my-3">
-			<input
-				type="text"
-				id="room-code"
-				name="code"
-				class="form-control w-50 mx-auto"
-				placeholder="Room Code"
-				value="{{code}}"
+			<label>Nickname</label>
+		  </div>
+		  <div class="user-box">
+			<input type="text"
+			id="room-code"
+			name="code"
+			value="{{code}}"
+			
 			/>
-			<button class="btn btn-secondary mt-4" type="submit" name="join">
-				Join a Room
-			</button>
-		</div>
-		<div class="create">
-			<button class="btn btn-primary" type="submit" name="create">
-				Create a Room
-			</button>
-		</div>
-	</form>
-</div>
 
-{% endblock %}
+			<label>Room Code</label>
+		  </div>
+		  <button class="mybtn" type="submit" name="create">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				Create
+		  </button>
+		  <button class="mybtn" type="submit" name="join">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			Join
+		  </button>
+			
+		
+		</form>
+	  </div>
+	  <script
+			src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+			integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"
+			integrity="sha512-TPh2Oxlg1zp+kz3nFA0C5vVC6leG/6mm1z9+mA81MI5eaUVqasPLO8Cuk4gMF4gUfP5etR73rgU/8PNMsSesoQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+			integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script src="{{url_for('static', filename='js/script.js')}}"></script>
+</body>
+</html>
